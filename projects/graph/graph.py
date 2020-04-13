@@ -133,7 +133,18 @@ class Graph:
         """
         stack = Stack()
         stack.push([starting_vertex])
-        
+        visited = set()
+        while stack.size() > 0:
+            path = stack.pop()
+            if path[-1] not in visited:
+                if path[-1] == destination_vertex:
+                    return path
+                visited.add(path[-1])
+                for next_vert in self.vertices[path[-1]]:
+                    new_path = list(path)
+                    new_path.append(next_vert)
+                    stack.push(new_path)
+
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
         """
@@ -143,7 +154,19 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        stack = Stack()
+        stack.push([starting_vertex])
+        visited = set()
+        while stack.size() > 0:
+            path = stack.pop()
+            if path[-1] not in visited:
+                if path[-1] == destination_vertex:
+                    return path
+                visited.add(path[-1])
+                for next_vert in self.vertices[path[-1]]:
+                    new_path = list(path)
+                    new_path.append(next_vert)
+                    stack.push(new_path)
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
