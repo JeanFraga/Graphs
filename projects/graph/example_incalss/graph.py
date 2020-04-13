@@ -7,7 +7,7 @@ class Graph:
 
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
     def __init__(self):
-        self.vertices = {}
+        self.vertices = {}  # This is our adjacency list
 
     def add_vertex(self, vertex_id):
         """
@@ -17,8 +17,9 @@ class Graph:
 
     def add_edge(self, v1, v2):
         """
-        Add a directed edge to the graph.
+        Add a directed edge to the graph from v1 to v2
         """
+        # Check if they exist
         if v1 in self.vertices and v2 in self.vertices:
             # Add the edge
             self.vertices[v1].add(v2)
@@ -33,6 +34,7 @@ class Graph:
             return self.vertices[vertex_id]
         else:
             return None
+            
 
     def bft(self, starting_vertex):
         """
@@ -59,6 +61,8 @@ class Graph:
                     new_path = list(path)
                     new_path.append(next_vert)
                     qq.enqueue(new_path)
+        
+        pass  # TODO
 
     def dft(self, starting_vertex):
         """
@@ -169,3 +173,4 @@ if __name__ == '__main__':
     '''
     print(graph.dfs(1, 6))
     print(graph.dfs_recursive(1, 6))
+
