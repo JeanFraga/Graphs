@@ -1,3 +1,6 @@
+import random
+from util import Stack, Queue
+
 class User:
     def __init__(self, name):
         self.name = name
@@ -45,8 +48,26 @@ class SocialGraph:
         # !!!! IMPLEMENT ME
 
         # Add users
+        # Use add_user num_users times
 
         # Create friendships
+        for i in range(0, num_users):
+            self.add_user(f"User {i+1}")
+
+        # Generate all friendship combinations
+        possible_friendships =  []
+
+        for user_id in self.users:
+            for friend_id in range(user_id+1, self.last_id+1):
+                possible_friendships.append((user_id, friend_id))
+
+        # Shuffle all possible friendships
+        random.shuffle(possible_friendships)
+
+        # Create for first X pairs x is total //2
+        for i in range(num_users * avg_friendships // 2):
+            friendship = possible_friendships[i]
+            self.add_friendship(friendship[0], friendship[1])
 
     def get_all_social_paths(self, user_id):
         """
@@ -57,10 +78,36 @@ class SocialGraph:
 
         The key is the friend's ID and the value is the path.
         """
-        visited = {}  # Note that this is a dictionary, not a set
-        # !!!! IMPLEMENT ME
-        return visited
+        visited = dict()  # Note that this is a dictionary, not a set
+        # # !!!! IMPLEMENT ME
+        qq = Queue()
+        friends = self.friendships[user_id]
+        for starting_vertex in friends:
+            qq.enqueue([starting_vertex])
+            # Create a set of traversed vertices
+            visited_friends = set()
+            # While queue is not empty:
+            while qq.size() > 0:
+                # dequeue/pop the first vertex
+                path = qq.dequeue()
+                # if not visited
+                if path[-1] not in visited_friends:
+                    # DO THE THING!!!!!!!
+                    # print(path[-1])
+                    # mark as visited
+                    visited_friends.add(path[-1])
+                    # enqueue all neightbors
+                    for next_vert in self.friendships[path[-1]]:
+                        new_path = list(path)
+                        new_path.append(next_vert)
+                        qq.enqueue(new_path)
+                    
+                    visited[starting_vertex] = visited_friends
+                    # print(starting_vertex, visited_friends)
+            
 
+        return visited
+        # print(self.friendships[user_id])
 
 if __name__ == '__main__':
     sg = SocialGraph()
