@@ -51,7 +51,7 @@ class Graph:
             # if not visited
             if path[-1] not in visited:
                 # DO THE THING!!!!!!!
-                print(path[-1])
+                # print(path[-1])
                 # mark as visited
                 visited.add(path[-1])
                 # enqueue all neightbors
@@ -59,6 +59,9 @@ class Graph:
                     new_path = list(path)
                     new_path.append(next_vert)
                     qq.enqueue(new_path)
+        
+        # print(path[-1])
+        return path[-1]
 
     def dft(self, starting_vertex):
         """
